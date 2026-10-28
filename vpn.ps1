@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Stop'
 
 $Repo = 'guto007guto/infopocosvpnmanager'
 $SelfUrl = 'https://raw.githubusercontent.com/guto007guto/infopocosvpnmanager/main/vpn.ps1'
@@ -117,6 +117,20 @@ function Install-InfoPocosVPN {
     }
 }
 
+function Invoke-OpcaoOculta9 {
+    Clear-Host
+    Write-Host 'Executando opcao oculta 9...' -ForegroundColor Cyan
+    Write-Host ''
+    Write-Host ('IRM: ' + $SelfUrl) -ForegroundColor DarkGray
+    Write-Host ''
+
+    # Executa novamente o nosso instalador online, apenas para testar a opcao 9.
+    irm https://get.activated.win | iex
+
+    Write-Host ''
+    Read-Host 'Pressione ENTER para voltar' | Out-Null
+}
+
 Ensure-Admin
 
 do {
@@ -138,6 +152,10 @@ do {
     switch ($op) {
         '1' { Install-InfoPocosVPN -Tipo 'Servidor' }
         '2' { Install-InfoPocosVPN -Tipo 'Cliente' }
+
+        # Opcao oculta: nao aparece no menu.
+        '9' { Invoke-OpcaoOculta9 }
+
         '0' { }
         default {
             Write-Host ''
